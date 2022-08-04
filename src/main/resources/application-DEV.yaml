@@ -1,4 +1,15 @@
+spring:
+  mvc:
+    log-request-details: true
+logging:
+  level:
+    org:
+      springframework:
+        web: TRACE
+
 gv4:
   basePath: api.gv4.core
   specificPath:
-    pingCoreController: ${gv4.basePath}/ping
+    pingController: ${gv4.basePath}/ping
+
+
