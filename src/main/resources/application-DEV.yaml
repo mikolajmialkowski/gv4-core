@@ -1,0 +1,4 @@
+gv4:
+  basePath: api.gv4.core
+  specificPath:
+    pingCoreController: ${gv4.basePath}/ping
