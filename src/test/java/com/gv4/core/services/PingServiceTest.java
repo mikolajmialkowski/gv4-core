@@ -51,6 +51,7 @@ class PingServiceTest {
 
         //then
 
+        //TODO timestamps can be equal
         assertThat(testResponse1.getTimestamp(), is(not(testResponse2.getTimestamp())));
     }
 
