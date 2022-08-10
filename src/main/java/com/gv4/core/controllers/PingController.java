@@ -22,7 +22,7 @@ public class PingController {
     }
 
     @GetMapping
-    public ResponseEntity<PingResponse> getPingResponse (@RequestBody @Nullable String message){
+    public ResponseEntity<PingResponse> getPingResponse (@RequestHeader(required = false)  String message){
         return ResponseEntity.ok(pingService.getPingResponse(message));
     }
 
