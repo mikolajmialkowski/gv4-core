@@ -23,4 +23,34 @@ class PingServiceTest {
         assertThat(pingResponse, hasProperty("timestamp"));
         assertThat(pingResponse, hasProperty("uuid"));
     }
+
+    @Test
+    void getPingResponse_testing_response_value() {
+
+        //given
+        String testMessage = "test_";
+        PingService testedService = new PingService();
+
+        //when
+        PingResponse testedOutput = testedService.getPingResponse(testMessage);
+
+        //then
+        assertThat(testedOutput.getMessage(), is(equalTo(testMessage)));
+        assertThat(testedOutput.getMessage(), is(instanceOf(String.class)));
+    }
+
+    @Test
+    void getPingResponse_testing_different_timestamps() {
+
+        //given
+        PingService testedService = new PingService();
+
+        //when
+        PingResponse testResponse1 = testedService.getPingResponse(null);
+        PingResponse testResponse2 = testedService.getPingResponse(null);
+
+        //then
+
+        assertThat(testResponse1.getTimestamp(), is(not(testResponse2.getTimestamp())));
+    }
 }
