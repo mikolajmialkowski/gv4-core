@@ -53,4 +53,20 @@ class PingServiceTest {
 
         assertThat(testResponse1.getTimestamp(), is(not(testResponse2.getTimestamp())));
     }
+
+    @Test
+    void getPingResponse_testing_different_uuids() {
+
+        //given
+        PingService testedService = new PingService();
+
+        //when
+        PingResponse testResponse1 = testedService.getPingResponse(null);
+        PingResponse testResponse2 = testedService.getPingResponse(null);
+
+        //then
+
+        assertThat(testResponse1.getUuid(), is(not(testResponse2.getUuid())));
+    }
+
 }
