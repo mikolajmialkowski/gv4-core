@@ -13,6 +13,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @Builder
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class SubjectEntity {
 
