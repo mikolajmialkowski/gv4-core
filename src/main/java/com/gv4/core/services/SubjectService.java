@@ -2,7 +2,9 @@ package com.gv4.core.services;
 
 import com.gv4.core.models.business.SubjectDTO;
 import com.gv4.core.models.entities.SubjectEntity;
+import com.gv4.core.models.exceptions.IllegalFieldException;
 import com.gv4.core.repositories.SubjectRepository;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -26,9 +28,19 @@ public class SubjectService {
         return subjectRepository.findAll().stream().map(this::getSubjectDTO).collect(Collectors.toList());
     }
 
+    @SneakyThrows
     public SubjectDTO getSubject(Long id){
         return getSubjectDTO(subjectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No subject for id = " + id)));
+    }
+
+    public SubjectDTO addSubject(SubjectDTO subjectDTO){
+        subjectRepository.findFirstByAlias(subjectDTO.getAlias())
+                .ifPresent((duplicate) -> {
+                    throw new IllegalFieldException("Values have to be unique for alias = " + subjectDTO.getAlias());
+                });
+
+       return getSubjectDTO(subjectRepository.saveAndFlush(getSubjectEntity(subjectDTO)));
     }
 
     private SubjectDTO getSubjectDTO(SubjectEntity subjectEntity){
@@ -36,6 +48,13 @@ public class SubjectService {
                 .id(subjectEntity.getId())
                 .name(subjectEntity.getName())
                 .alias(subjectEntity.getAlias())
+                .build();
+    }
+
+    private SubjectEntity getSubjectEntity(SubjectDTO subjectDTO){
+        return SubjectEntity.builder()
+                .name(subjectDTO.getName())
+                .alias(subjectDTO.getAlias())
                 .build();
     }
 }

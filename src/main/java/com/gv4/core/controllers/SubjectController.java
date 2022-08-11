@@ -6,10 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +31,11 @@ public class SubjectController {
     @GetMapping("/{id}")
     public ResponseEntity<SubjectDTO> getSubject(@PathVariable Long id) {
         return ResponseEntity.ok(subjectService.getSubject(id));
+    }
+
+    @PostMapping()
+    public ResponseEntity<SubjectDTO> addSubject(@RequestBody SubjectDTO subjectDTO) {
+        return ResponseEntity.ok(subjectService.addSubject(subjectDTO));
     }
 
 }

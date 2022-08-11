@@ -3,8 +3,7 @@ package com.gv4.core.models.entities;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
@@ -18,12 +17,14 @@ import java.util.Objects;
 public class SubjectEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank
     private String name;
 
     @NotBlank
+    @Column(unique = true)
     private String alias;
 
     //TODO add Semester, Questions collection and {...} (?)
