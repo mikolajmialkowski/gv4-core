@@ -4,8 +4,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 import org.springframework.http.HttpStatus;
-import org.springframework.lang.Nullable;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 

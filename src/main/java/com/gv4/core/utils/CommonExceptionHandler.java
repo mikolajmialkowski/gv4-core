@@ -29,5 +29,4 @@ public class CommonExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CommonErrorResponse
                 .getBody(illegalFieldException.getMessage(), HttpStatus.BAD_REQUEST));
     }
-
 }

@@ -3,6 +3,7 @@ package com.gv4.core.models.business;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.lang.Nullable;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Builder
@@ -11,10 +12,10 @@ public class SubjectDTO {
     @Nullable
     private Long id;
 
-    @Nullable
+    @NotBlank
     private String name;
 
-    @Nullable
+    @NotBlank
     private String alias;
 
 }
