@@ -5,11 +5,13 @@ logging:
   level:
     org:
       springframework:
-        web: TRACE
+        web: DEBUG
 
 gv4:
   basePath: api.gv4.core
   specificPath:
     pingController: ${gv4.basePath}/ping
+    subjectController: ${gv4.basePath}/subject
+
 
 
