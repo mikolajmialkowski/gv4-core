@@ -6,6 +6,7 @@ import com.gv4.core.repositories.SemesterRepository;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -34,26 +35,24 @@ public class SemesterService {
     }
 
     public SemesterDTO addSemester(SemesterDTO semesterDTO){
-        semesterRepository.findBySemesterNumber(semesterDTO.getAlias())
+        semesterRepository.findFirstBySemesterNumber(semesterDTO.getSemesterNumber())
                 .ifPresent((duplicate) -> {
-                    throw new IllegalFieldException("Values have to be unique for alias = " + subjectDTO.getAlias());
+                    throw new DuplicateKeyException("Values have to be unique for alias = " + semesterDTO.getSemesterNumber());
                 });
 
-        return getSubjectDTO(subjectRepository.saveAndFlush(getSubjectEntity(subjectDTO)));
+        return getSemesterDTO(semesterRepository.saveAndFlush(getSemesterEntity(semesterDTO)));
     }
 
     private SemesterDTO getSemesterDTO(SemesterEntity semesterEntity){
         return SemesterDTO.builder()
                 .id(semesterEntity.getId())
-                .name(semesterEntity.getName())
-                .alias(semesterEntity.getAlias())
+                .semesterNumber(semesterEntity.getSemesterNumber())
                 .build();
     }
 
     private SemesterEntity getSemesterEntity(SemesterDTO semesterDTO){
         return SemesterEntity.builder()
-                .name(semesterDTO.getName())
-                .alias(semesterDTO.getAlias())
+                .semesterNumber(semesterDTO.getSemesterNumber())
                 .build();
     }
 }
